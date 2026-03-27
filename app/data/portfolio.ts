@@ -66,18 +66,17 @@ export const sceneObjects: SceneObjectConfig[] = [
 ];
 
 export const aboutContent = {
-  intro:
-    "I build playful software, small products, and internet corners that feel like they have a point of view. Right now this is a stylized placeholder version of my portfolio, built as a little orbiting system around the things I spend time on.",
-  build:
-    "I like shipping apps, prototypes, tools, and experiments that sit somewhere between design, code, and storytelling.",
-  interests: [
-    "Indie products with strong aesthetics",
-    "Creative coding and interactive web experiences",
-    "AI-assisted tools that make solo building faster",
-    "Writing about systems, habits, and the process of making things",
+  paragraphs: [
+    "I'm currently studying Computer Science at UCSB. I'm interested in game development and entrepreneurship.",
+    "Right now, I'm working on two main projects: a coin-scanning mobile app, and an idle game I'm planning to release on Steam.",
+    "Before this, I built a multiplayer Unity game, along with an AI-powered slideshow generator for TikTok and Instagram that helps businesses create short-form content.",
+    "I've been into building for a while. I started by making Minecraft mods when I was 10, and since then I've just kept going, trying ideas, shipping projects, and figuring things out as I go.",
   ],
-  focus:
-    "At the moment I'm focused on becoming more technically sharp, publishing more consistently, and turning side projects into something durable.",
+  funFacts: [
+    "I rock climb and play badminton",
+    "I baked a cake with a blowtorch (it did not go well)",
+    "I read 30 books last year",
+  ],
 };
 
 export const projectCards: ProjectCard[] = [

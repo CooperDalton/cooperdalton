@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 import { HabitHeatmap } from "@/app/components/portfolio/HabitHeatmap";
 import {
@@ -15,6 +16,8 @@ interface InfoPanelProps {
   onClose: () => void;
   blogPosts: BlogPost[];
 }
+
+const EMAIL_ADDRESS = "cooper@cooperdalton.com";
 
 function getYouTubeEmbedUrl(url: string) {
   const videoId = url.match(
@@ -52,43 +55,29 @@ function renderSection(selectedSection: SectionKey, blogPosts: BlogPost[]) {
     case "about":
       return (
         <div className="space-y-6">
-          <div>
-            <p className="text-sm leading-7 text-slate-300">
-              {aboutContent.intro}
-            </p>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-amber-200">
-                What I build
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">
-                {aboutContent.build}
-              </p>
-            </div>
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
-              <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-200">
-                Right now
-              </h3>
-              <p className="mt-3 text-sm leading-7 text-slate-300">
-                {aboutContent.focus}
-              </p>
+          <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+            <div className="space-y-4">
+              {aboutContent.paragraphs.map((paragraph) => (
+                <p key={paragraph} className="text-sm leading-7 text-slate-300">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
           <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
             <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-200">
-              Interests
+              Fun Facts
             </h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {aboutContent.interests.map((interest) => (
-                <span
-                  key={interest}
-                  className="rounded-full border border-white/12 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-200"
-                >
-                  {interest}
-                </span>
+            <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-300">
+              {aboutContent.funFacts.map((fact) => (
+                <li key={fact} className="flex gap-3">
+                  <span aria-hidden="true" className="text-emerald-300">
+                    -
+                  </span>
+                  <span>{fact}</span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       );
@@ -177,7 +166,7 @@ function renderSection(selectedSection: SectionKey, blogPosts: BlogPost[]) {
             <Link
               key={post.title}
               href={`/blog/${post.slug}`}
-              className="rounded-3xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/7 focus:outline-none focus:ring-2 focus:ring-amber-300/60"
+              className="rounded-3xl border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/7 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
             >
               <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
                 {post.date}
@@ -187,9 +176,6 @@ function renderSection(selectedSection: SectionKey, blogPosts: BlogPost[]) {
               </h3>
               <p className="mt-2 text-sm leading-7 text-slate-300">
                 {post.summary}
-              </p>
-              <p className="mt-4 text-xs font-medium uppercase tracking-[0.24em] text-amber-200">
-                Read article
               </p>
             </Link>
           ))}
@@ -230,11 +216,41 @@ export function InfoPanel({
   onClose,
   blogPosts,
 }: InfoPanelProps) {
+  const [copyMessage, setCopyMessage] = useState("");
+  const copyMessageTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+
+  useEffect(() => {
+    return () => {
+      if (copyMessageTimeoutRef.current) {
+        clearTimeout(copyMessageTimeoutRef.current);
+      }
+    };
+  }, []);
+
   if (!selectedSection) {
     return null;
   }
 
   const title = getPanelHeading(selectedSection);
+
+  async function handleCopyEmail() {
+    try {
+      await navigator.clipboard.writeText(EMAIL_ADDRESS);
+      setCopyMessage("Email address copied!");
+    } catch {
+      setCopyMessage("Couldn't copy email");
+    }
+
+    if (copyMessageTimeoutRef.current) {
+      clearTimeout(copyMessageTimeoutRef.current);
+    }
+
+    copyMessageTimeoutRef.current = setTimeout(() => {
+      setCopyMessage("");
+    }, 1800);
+  }
 
   return (
     <div className="pointer-events-none absolute inset-0 z-30 flex items-end justify-center p-4 md:items-center md:justify-end md:p-8">
@@ -242,19 +258,38 @@ export function InfoPanel({
         role="dialog"
         aria-modal="true"
         aria-labelledby="portfolio-panel-title"
-        className="panel-enter pointer-events-auto relative w-full max-w-3xl overflow-hidden rounded-[2rem] border border-white/12 bg-slate-950/86 p-5 shadow-[0_24px_120px_rgba(0,0,0,0.45)] md:w-[52rem] md:max-w-[52rem] md:p-6"
+        className="panel-enter pointer-events-auto relative w-full max-w-3xl rounded-[2rem] border border-white/12 bg-slate-950/92 p-5 shadow-[0_24px_120px_rgba(0,0,0,0.45)] md:w-[52rem] md:max-w-[52rem] md:p-6"
       >
         <div className="mb-5 flex items-start justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
               Orbit panel
             </p>
-            <h2
-              id="portfolio-panel-title"
-              className="mt-2 text-2xl font-semibold text-white"
-            >
-              {title}
-            </h2>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <h2
+                id="portfolio-panel-title"
+                className="text-2xl font-semibold text-white"
+              >
+                {title}
+              </h2>
+              {selectedSection === "about" ? (
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
+                >
+                  Email me
+                </button>
+              ) : null}
+              {copyMessage ? (
+                <span
+                  aria-live="polite"
+                  className="text-sm text-emerald-300"
+                >
+                  {copyMessage}
+                </span>
+              ) : null}
+            </div>
           </div>
           <button
             type="button"
