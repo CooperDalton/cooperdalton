@@ -5,20 +5,23 @@ import * as THREE from "three";
 
 import { HoverLabel } from "@/app/components/portfolio/HoverLabel";
 import { PlanetModel } from "@/app/components/portfolio/PlaceholderModels";
-import type { SceneObjectConfig, SectionKey } from "@/app/types/portfolio";
+import type {
+  PortfolioPanelKey,
+  SceneObjectConfig,
+} from "@/app/types/portfolio";
 
 interface CenterPlanetProps {
   config: SceneObjectConfig;
   hovered: boolean;
   selected: boolean;
   onPositionUpdate: (
-    section: SectionKey,
+    panel: PortfolioPanelKey,
     x: number,
     y: number,
     z: number,
   ) => void;
-  onHoverChange: (section: SectionKey | null) => void;
-  onSelect: (section: SectionKey) => void;
+  onHoverChange: (panel: PortfolioPanelKey | null) => void;
+  onSelect: (panel: PortfolioPanelKey) => void;
 }
 
 export function CenterPlanet({
@@ -75,7 +78,7 @@ export function CenterPlanet({
         }}
         onClick={(event) => {
           event.stopPropagation();
-          onSelect(config.contentKey);
+          onSelect(config.id);
         }}
       >
         <sphereGeometry args={[1.8, 24, 24]} />

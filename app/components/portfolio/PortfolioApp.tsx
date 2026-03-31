@@ -4,26 +4,27 @@ import { startTransition, useEffect, useEffectEvent, useState } from "react";
 
 import { HeroScene } from "@/app/components/portfolio/HeroScene";
 import { InfoPanel } from "@/app/components/portfolio/InfoPanel";
-import type { BlogPost, SectionKey } from "@/app/types/portfolio";
+import type { PortfolioPanelKey } from "@/app/types/portfolio";
 
-interface PortfolioAppProps {
-  blogPosts: BlogPost[];
-}
+export function PortfolioApp() {
+  const [selectedPanel, setSelectedPanel] = useState<PortfolioPanelKey | null>(
+    null,
+  );
+  const [hoveredPanel, setHoveredPanel] = useState<PortfolioPanelKey | null>(
+    null,
+  );
+  const animationPaused = hoveredPanel !== null || selectedPanel !== null;
 
-export function PortfolioApp({ blogPosts }: PortfolioAppProps) {
-  const [selectedSection, setSelectedSection] = useState<SectionKey | null>(null);
-  const [hoveredSection, setHoveredSection] = useState<SectionKey | null>(null);
-  const animationPaused = hoveredSection !== null || selectedSection !== null;
-  const openSection = (section: SectionKey) => {
+  const openPanel = (panel: PortfolioPanelKey) => {
     startTransition(() => {
-      setHoveredSection(null);
-      setSelectedSection(section);
+      setHoveredPanel(null);
+      setSelectedPanel(panel);
     });
   };
 
   const closePanel = () => {
     startTransition(() => {
-      setSelectedSection(null);
+      setSelectedPanel(null);
     });
   };
 
@@ -44,18 +45,14 @@ export function PortfolioApp({ blogPosts }: PortfolioAppProps) {
     <main className="relative min-h-screen overflow-hidden bg-[#030712] text-white">
       <HeroScene
         animationPaused={animationPaused}
-        selectedSection={selectedSection}
-        hoveredSection={hoveredSection}
-        onHoverChange={setHoveredSection}
+        selectedPanel={selectedPanel}
+        hoveredPanel={hoveredPanel}
+        onHoverChange={setHoveredPanel}
         onClearSelection={closePanel}
-        onSelect={openSection}
+        onSelect={openPanel}
       />
 
-      <InfoPanel
-        selectedSection={selectedSection}
-        onClose={closePanel}
-        blogPosts={blogPosts}
-      />
+      <InfoPanel selectedPanel={selectedPanel} onClose={closePanel} />
     </main>
   );
 }

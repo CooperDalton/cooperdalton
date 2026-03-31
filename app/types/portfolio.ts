@@ -1,9 +1,15 @@
-export type SectionKey = "about" | "projects" | "blog" | "habits";
+export type ProjectKey =
+  | "brick-breaker-idle"
+  | "scrollstopper"
+  | "dispatchiq"
+  | "multiplayer-tanks";
 
-export type SceneObjectType = "planet" | "computer" | "book" | "habit-tracker";
+export type PortfolioPanelKey = "about" | ProjectKey;
+
+export type SceneObjectType = "planet" | "computer";
 
 export interface SceneObjectConfig {
-  id: SectionKey;
+  id: PortfolioPanelKey;
   label: string;
   type: SceneObjectType;
   orbitRadius: number;
@@ -13,13 +19,18 @@ export interface SceneObjectConfig {
   accentColor: string;
   emissiveColor: string;
   outlineScale: number;
-  contentKey: SectionKey;
 }
 
 export interface ProjectCard {
+  id: ProjectKey;
+  orbitLabel: string;
   title: string;
+  category: string;
+  status: string;
   description: string;
   stack: string[];
+  accentColor: string;
+  emissiveColor: string;
   href?: string;
   demoHref?: string;
   demoImageSrc?: string;

@@ -4,12 +4,11 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 import { HoverLabel } from "@/app/components/portfolio/HoverLabel";
-import {
-  BookModel,
-  ComputerModel,
-  HabitTrackerModel,
-} from "@/app/components/portfolio/PlaceholderModels";
-import type { SceneObjectConfig, SectionKey } from "@/app/types/portfolio";
+import { ComputerModel } from "@/app/components/portfolio/PlaceholderModels";
+import type {
+  PortfolioPanelKey,
+  SceneObjectConfig,
+} from "@/app/types/portfolio";
 
 interface OrbitingObjectProps {
   config: SceneObjectConfig;
@@ -17,13 +16,13 @@ interface OrbitingObjectProps {
   selected: boolean;
   paused: boolean;
   onPositionUpdate: (
-    section: SectionKey,
+    panel: PortfolioPanelKey,
     x: number,
     y: number,
     z: number,
   ) => void;
-  onHoverChange: (section: SectionKey | null) => void;
-  onSelect: (section: SectionKey) => void;
+  onHoverChange: (panel: PortfolioPanelKey | null) => void;
+  onSelect: (panel: PortfolioPanelKey) => void;
 }
 
 export function OrbitingObject({
@@ -69,30 +68,12 @@ export function OrbitingObject({
   return (
     <group ref={orbitRef}>
       <group ref={modelRef}>
-        {config.type === "computer" ? (
-          <ComputerModel
-            color={config.accentColor}
-            emissive={config.emissiveColor}
-            outlineScale={config.outlineScale}
-            hovered={hovered || selected}
-          />
-        ) : null}
-        {config.type === "book" ? (
-          <BookModel
-            color={config.accentColor}
-            emissive={config.emissiveColor}
-            outlineScale={config.outlineScale}
-            hovered={hovered || selected}
-          />
-        ) : null}
-        {config.type === "habit-tracker" ? (
-          <HabitTrackerModel
-            color={config.accentColor}
-            emissive={config.emissiveColor}
-            outlineScale={config.outlineScale}
-            hovered={hovered || selected}
-          />
-        ) : null}
+        <ComputerModel
+          color={config.accentColor}
+          emissive={config.emissiveColor}
+          outlineScale={config.outlineScale}
+          hovered={hovered || selected}
+        />
       </group>
       <HoverLabel label={config.label} visible={hovered && !selected} />
       <mesh
@@ -106,7 +87,7 @@ export function OrbitingObject({
         }}
         onClick={(event) => {
           event.stopPropagation();
-          onSelect(config.contentKey);
+          onSelect(config.id);
         }}
       >
         <sphereGeometry args={[1.45, 16, 16]} />

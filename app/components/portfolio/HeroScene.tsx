@@ -7,46 +7,45 @@ import { OrbitRing } from "@/app/components/portfolio/OrbitRing";
 import { OrbitingObject } from "@/app/components/portfolio/OrbitingObject";
 import { SpaceBackground } from "@/app/components/portfolio/SpaceBackground";
 import { sceneObjects } from "@/app/data/portfolio";
-import type { SectionKey } from "@/app/types/portfolio";
+import type { PortfolioPanelKey } from "@/app/types/portfolio";
 
 interface HeroSceneProps {
   animationPaused: boolean;
-  selectedSection: SectionKey | null;
-  hoveredSection: SectionKey | null;
-  onHoverChange: (section: SectionKey | null) => void;
+  selectedPanel: PortfolioPanelKey | null;
+  hoveredPanel: PortfolioPanelKey | null;
+  onHoverChange: (panel: PortfolioPanelKey | null) => void;
   onClearSelection: () => void;
-  onSelect: (section: SectionKey) => void;
+  onSelect: (panel: PortfolioPanelKey) => void;
 }
 
 function SceneContents({
   animationPaused,
-  selectedSection,
-  hoveredSection,
+  selectedPanel,
+  hoveredPanel,
   onHoverChange,
   onSelect,
 }: HeroSceneProps) {
   const { camera } = useThree();
   const cameraTarget = useRef(new THREE.Vector3(0, 20, 0.01));
   const lookAtTarget = useRef(new THREE.Vector3(0, 0, 0));
-  const objectPositions = useRef<Record<SectionKey, THREE.Vector3>>({
-    about: new THREE.Vector3(0, 0, 0),
-    projects: new THREE.Vector3(0, 0, 0),
-    blog: new THREE.Vector3(0, 0, 0),
-    habits: new THREE.Vector3(0, 0, 0),
-  });
+  const objectPositions = useRef(new Map<PortfolioPanelKey, THREE.Vector3>());
 
   const updateObjectPosition = (
-    section: SectionKey,
+    panel: PortfolioPanelKey,
     x: number,
     y: number,
     z: number,
   ) => {
-    objectPositions.current[section].set(x, y, z);
+    const nextPosition =
+      objectPositions.current.get(panel) ?? new THREE.Vector3();
+    nextPosition.set(x, y, z);
+    objectPositions.current.set(panel, nextPosition);
   };
 
   useFrame((_state, delta) => {
-    if (selectedSection) {
-      const focusedObjectPosition = objectPositions.current[selectedSection];
+    if (selectedPanel) {
+      const focusedObjectPosition =
+        objectPositions.current.get(selectedPanel) ?? new THREE.Vector3();
 
       cameraTarget.current.set(
         focusedObjectPosition.x + 0.25,
@@ -71,7 +70,7 @@ function SceneContents({
 
     camera.position.lerp(
       cameraTarget.current,
-      1 - Math.exp(-delta * (selectedSection ? 4 : 2.5)),
+      1 - Math.exp(-delta * (selectedPanel ? 4 : 2.5)),
     );
     camera.lookAt(lookAtTarget.current);
   });
@@ -95,8 +94,8 @@ function SceneContents({
         {centerPlanet ? (
           <CenterPlanet
             config={centerPlanet}
-            hovered={hoveredSection === centerPlanet.id}
-            selected={selectedSection === centerPlanet.id}
+            hovered={hoveredPanel === centerPlanet.id}
+            selected={selectedPanel === centerPlanet.id}
             onPositionUpdate={updateObjectPosition}
             onHoverChange={onHoverChange}
             onSelect={onSelect}
@@ -106,8 +105,8 @@ function SceneContents({
           <OrbitingObject
             key={item.id}
             config={item}
-            hovered={hoveredSection === item.id}
-            selected={selectedSection === item.id}
+            hovered={hoveredPanel === item.id}
+            selected={selectedPanel === item.id}
             paused={animationPaused}
             onPositionUpdate={updateObjectPosition}
             onHoverChange={onHoverChange}

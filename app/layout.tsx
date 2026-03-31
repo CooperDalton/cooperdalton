@@ -16,7 +16,7 @@ const monoFont = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Cooper Dalton | Personal Orbit",
   description:
-    "A stylized 3D portfolio scene with orbiting sections for projects, writing, habits, and bio.",
+    "A stylized 3D portfolio scene with a central bio and individual orbiting project showcases.",
 };
 
 export default function RootLayout({
