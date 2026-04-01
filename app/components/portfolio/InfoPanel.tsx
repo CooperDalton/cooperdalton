@@ -49,26 +49,6 @@ function ExternalLinkIcon() {
   );
 }
 
-function ActionButton({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/6 px-4 py-2.5 text-sm font-medium text-slate-100 transition hover:border-white/20 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
-    >
-      <span>{children}</span>
-      <ExternalLinkIcon />
-    </a>
-  );
-}
-
 function ProjectMedia({ project }: { project: ProjectCard }) {
   if (project.demoHref) {
     return (
@@ -163,46 +143,21 @@ function renderProjectSection(project: ProjectCard) {
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.75fr)]">
         <ProjectMedia project={project} />
         <div className="space-y-5">
+          <div className="flex flex-wrap gap-2">
+            {project.stack.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-white/10 bg-slate-950/60 px-3 py-1 text-xs text-slate-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
           <section className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-            <div className="flex flex-wrap gap-2">
-              <span className="rounded-full border border-white/10 bg-slate-950/60 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-slate-300">
-                {project.category}
-              </span>
-              <span className="rounded-full border border-white/10 bg-slate-950/60 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-slate-300">
-                {project.status}
-              </span>
-            </div>
-            <p className="mt-4 text-sm leading-7 text-slate-300">
+            <p className="text-sm leading-7 text-slate-300">
               {project.description}
             </p>
           </section>
-
-          <section className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-            <p className="text-xs uppercase tracking-[0.28em] text-slate-500">
-              Stack
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {project.stack.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-white/10 bg-slate-950/60 px-3 py-1 text-xs text-slate-300"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </section>
-
-          {project.href || project.demoHref ? (
-            <section className="grid gap-3 sm:grid-cols-2">
-              {project.href ? (
-                <ActionButton href={project.href}>Open Project</ActionButton>
-              ) : null}
-              {project.demoHref ? (
-                <ActionButton href={project.demoHref}>Watch Demo</ActionButton>
-              ) : null}
-            </section>
-          ) : null}
         </div>
       </div>
     </article>
@@ -284,6 +239,17 @@ export function InfoPanel({ selectedPanel, onClose }: InfoPanelProps) {
               >
                 {title}
               </h2>
+              {selectedProject?.href ? (
+                <a
+                  href={selectedProject.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${selectedProject.title}`}
+                  className="text-sky-200 transition hover:text-sky-100 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
+                >
+                  <ExternalLinkIcon />
+                </a>
+              ) : null}
               {selectedPanel === "about" ? (
                 <button
                   type="button"
