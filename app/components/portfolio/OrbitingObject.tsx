@@ -4,7 +4,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 
 import { HoverLabel } from "@/app/components/portfolio/HoverLabel";
-import { ComputerModel } from "@/app/components/portfolio/PlaceholderModels";
+import { ProjectOrbitModel } from "@/app/components/portfolio/PlaceholderModels";
 import type {
   PortfolioPanelKey,
   SceneObjectConfig,
@@ -50,7 +50,6 @@ export function OrbitingObject({
     }
 
     modelRef.current.rotation.y += delta * 0.45;
-    modelRef.current.rotation.x += delta * 0.12;
 
     const angle = angleRef.current;
     const x = Math.cos(angle) * config.orbitRadius;
@@ -68,12 +67,15 @@ export function OrbitingObject({
   return (
     <group ref={orbitRef}>
       <group ref={modelRef}>
-        <ComputerModel
-          color={config.accentColor}
-          emissive={config.emissiveColor}
-          outlineScale={config.outlineScale}
-          hovered={hovered || selected}
-        />
+        {config.orbitModelKey ? (
+          <ProjectOrbitModel
+            modelKey={config.orbitModelKey}
+            color={config.accentColor}
+            emissive={config.emissiveColor}
+            outlineScale={config.outlineScale}
+            hovered={hovered || selected}
+          />
+        ) : null}
       </group>
       <HoverLabel label={config.label} visible={hovered && !selected} />
       <mesh

@@ -7,6 +7,11 @@ export type ProjectKey =
 export type PortfolioPanelKey = "about" | ProjectKey;
 
 export type SceneObjectType = "planet" | "computer";
+export type OrbitModelKey =
+  | "phone"
+  | "tank"
+  | "headset"
+  | "controller";
 
 export interface SceneObjectConfig {
   id: PortfolioPanelKey;
@@ -19,6 +24,7 @@ export interface SceneObjectConfig {
   accentColor: string;
   emissiveColor: string;
   outlineScale: number;
+  orbitModelKey?: OrbitModelKey;
 }
 
 export interface ProjectCard {

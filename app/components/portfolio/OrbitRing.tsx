@@ -4,6 +4,7 @@ import * as THREE from "three";
 
 const OBJECT_PLANE_Y = 0;
 const RING_PLANE_Y = -2.2;
+const RING_TUBE_RADIUS = 0.07;
 
 export function OrbitRing({ radius }: { radius: number }) {
   const { camera } = useThree();
@@ -52,8 +53,8 @@ export function OrbitRing({ radius }: { radius: number }) {
   return (
     <group ref={ringRef} position={[0, RING_PLANE_Y, 0]}>
       <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[radius, 0.08, 18, 120]} />
-        <meshBasicMaterial color="#ffffff" opacity={0.24} transparent />
+        <torusGeometry args={[radius, RING_TUBE_RADIUS, 18, 120]} />
+        <meshBasicMaterial color="#ffffff" opacity={0.2} transparent />
       </mesh>
     </group>
   );

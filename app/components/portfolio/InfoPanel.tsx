@@ -52,7 +52,7 @@ function ExternalLinkIcon() {
 function ProjectMedia({ project }: { project: ProjectCard }) {
   if (project.demoHref) {
     return (
-      <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/80 shadow-[0_18px_64px_rgba(0,0,0,0.28)]">
+      <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/88 shadow-[0_18px_64px_rgba(0,0,0,0.28)]">
         <div className="aspect-video">
           <iframe
             src={getYouTubeEmbedUrl(project.demoHref) ?? undefined}
@@ -69,7 +69,7 @@ function ProjectMedia({ project }: { project: ProjectCard }) {
 
   if (project.demoImageSrc) {
     return (
-      <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/80 shadow-[0_18px_64px_rgba(0,0,0,0.28)]">
+      <div className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-slate-950/88 shadow-[0_18px_64px_rgba(0,0,0,0.28)]">
         <div className="relative aspect-video">
           <Image
             src={project.demoImageSrc}
@@ -85,7 +85,7 @@ function ProjectMedia({ project }: { project: ProjectCard }) {
   }
 
   return (
-    <div className="flex aspect-video items-center justify-center rounded-[1.75rem] border border-dashed border-white/10 bg-slate-950/50 px-4 text-center text-xs uppercase tracking-[0.22em] text-slate-500">
+    <div className="flex aspect-video items-center justify-center rounded-[1.75rem] border border-dashed border-white/10 bg-slate-950/68 px-4 text-center text-xs uppercase tracking-[0.22em] text-slate-500">
       Demo media pending
     </div>
   );
@@ -94,7 +94,7 @@ function ProjectMedia({ project }: { project: ProjectCard }) {
 function renderAboutSection() {
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+      <div className="rounded-3xl border border-white/10 bg-white/8 p-4">
         <div className="space-y-4">
           {aboutContent.paragraphs.map((paragraph) => (
             <p key={paragraph} className="text-sm leading-7 text-slate-300">
@@ -103,7 +103,7 @@ function renderAboutSection() {
           ))}
         </div>
       </div>
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+      <div className="rounded-3xl border border-white/10 bg-white/8 p-4">
         <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-emerald-200">
           Fun Facts
         </h3>
@@ -118,7 +118,7 @@ function renderAboutSection() {
           ))}
         </ul>
       </div>
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-4">
+      <div className="rounded-3xl border border-white/10 bg-white/8 p-4">
         <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-200">
           Projects In Orbit
         </h3>
@@ -126,7 +126,7 @@ function renderAboutSection() {
           {projectCards.map((project) => (
             <span
               key={project.id}
-              className="rounded-full border border-white/10 bg-slate-950/60 px-3 py-1 text-xs text-slate-300"
+              className="rounded-full border border-white/10 bg-slate-950/72 px-3 py-1 text-xs text-slate-300"
             >
               {project.title}
             </span>
@@ -147,17 +147,15 @@ function renderProjectSection(project: ProjectCard) {
             {project.stack.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/10 bg-slate-950/60 px-3 py-1 text-xs text-slate-300"
+                className="rounded-full border border-white/10 bg-slate-950/72 px-3 py-1 text-xs text-slate-300"
               >
                 {tag}
               </span>
             ))}
           </div>
-          <section className="rounded-[1.75rem] border border-white/10 bg-white/5 p-5">
-            <p className="text-sm leading-7 text-slate-300">
-              {project.description}
-            </p>
-          </section>
+          <p className="text-sm leading-7 text-slate-300">
+            {project.description}
+          </p>
         </div>
       </div>
     </article>
@@ -221,7 +219,7 @@ export function InfoPanel({ selectedPanel, onClose }: InfoPanelProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="portfolio-panel-title"
-        className={`panel-enter pointer-events-auto relative w-full rounded-[2rem] border border-white/12 bg-slate-950/92 p-5 shadow-[0_24px_120px_rgba(0,0,0,0.45)] md:p-6 ${
+        className={`panel-enter pointer-events-auto relative w-full rounded-[2rem] border border-white/12 bg-slate-950/95 p-5 shadow-[0_24px_120px_rgba(0,0,0,0.45)] md:p-6 ${
           selectedProject
             ? "max-w-4xl md:w-[62rem] md:max-w-[62rem]"
             : "max-w-3xl md:w-[52rem] md:max-w-[52rem]"
@@ -254,7 +252,7 @@ export function InfoPanel({ selectedPanel, onClose }: InfoPanelProps) {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
+                  className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-white/14 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
                 >
                   Email me
                 </button>
@@ -269,7 +267,7 @@ export function InfoPanel({ selectedPanel, onClose }: InfoPanelProps) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-slate-200 transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
+            className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-sm text-slate-200 transition hover:bg-white/14 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
           >
             Close
           </button>

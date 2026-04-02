@@ -1,11 +1,12 @@
 import type {
+  OrbitModelKey,
   ProjectCard,
   ProjectKey,
   SceneObjectConfig,
 } from "@/app/types/portfolio";
 
 const ORBIT_QUARTER = (Math.PI * 2) / 4;
-const SHARED_ORBIT_RADIUS = 6.4;
+const SHARED_ORBIT_RADIUS = 5.35;
 const SHARED_ORBIT_SPEED = 0.16;
 const SHARED_ORBIT_ANGLES = [
   -Math.PI / 6,
@@ -13,6 +14,12 @@ const SHARED_ORBIT_ANGLES = [
   -Math.PI / 6 + ORBIT_QUARTER * 2,
   -Math.PI / 6 + ORBIT_QUARTER * 3,
 ] as const;
+const PROJECT_MODEL_KEYS: Record<ProjectKey, OrbitModelKey> = {
+  "brick-breaker-idle": "controller",
+  scrollstopper: "phone",
+  dispatchiq: "headset",
+  "multiplayer-tanks": "tank",
+};
 
 export const aboutSceneObject: SceneObjectConfig = {
   id: "about",
@@ -63,7 +70,7 @@ export const projectCards: ProjectCard[] = [
     category: "SaaS Product",
     status: "Live Product",
     description:
-      "An AI tool that automates TikTok and Instagram slideshow videos to help businesses market themselves.",
+      "An AI tool that automates TikTok and Instagram slideshow videos to help businesses market themselves. ",
     stack: ["Next.js", "Supabase", "OpenAI", "Stripe"],
     accentColor: "#fb7185",
     emissiveColor: "#fda4af",
@@ -113,6 +120,7 @@ export const sceneObjects: SceneObjectConfig[] = [
     accentColor: project.accentColor,
     emissiveColor: project.emissiveColor,
     outlineScale: 1.09,
+    orbitModelKey: PROJECT_MODEL_KEYS[project.id],
   })),
 ];
 
