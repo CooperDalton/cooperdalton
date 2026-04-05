@@ -36,7 +36,7 @@ export const aboutSceneObject: SceneObjectConfig = {
 
 export const aboutContent = {
   paragraphs: [
-    "I'm currently studying Computer Science at UCSB. I'm interested in game development and entrepreneurship. Right now, I'm working on two main projects: a coin-scanning mobile app, and an idle game I'm planning to release on Steam. Before this, I built a multiplayer Unity game, along with an AI-powered slideshow generator for TikTok and Instagram that helps businesses create short-form content. I've been into building for a while. I started by making Minecraft mods when I was 10, and since then I've just kept going, trying ideas, shipping projects, and figuring things out as I go.",
+    "Hi, I'm Cooper. I'm currently studying Computer Science at UCSB. I'm interested in game development and entrepreneurship. Right now, I'm working on two main projects: a coin-scanning mobile app, and an idle game I'm planning to release on Steam. Before this, I built a multiplayer Unity game, along with an AI-powered slideshow generator for TikTok and Instagram that helps businesses create short-form content. I've been into building for a while. I started by making Minecraft mods when I was 10, and since then I've just kept going, trying ideas, shipping projects, and figuring things out as I go.",
   ],
   funFacts: [
     "I've won 4 hackathons",

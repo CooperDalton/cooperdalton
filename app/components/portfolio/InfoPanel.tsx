@@ -119,21 +119,6 @@ function renderAboutSection() {
           ))}
         </ul>
       </div>
-      <div className="rounded-3xl border border-white/10 bg-white/8 p-4">
-        <h3 className="text-sm font-semibold uppercase tracking-[0.24em] text-sky-200">
-          Projects In Orbit
-        </h3>
-        <div className="mt-4 flex flex-wrap gap-2">
-          {projectCards.map((project) => (
-            <span
-              key={project.id}
-              className="rounded-full border border-white/10 bg-slate-950/72 px-3 py-1 text-xs text-slate-300"
-            >
-              {project.title}
-            </span>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }

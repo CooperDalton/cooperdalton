@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 export const contentType = "image/png";
 
 export default async function Icon() {
-  const iconPath = path.join(process.cwd(), "public", "icon.png");
+  const iconPath = path.join(process.cwd(), "public", "icon-better.png");
   const icon = await readFile(iconPath);
 
   return new Response(icon, {
