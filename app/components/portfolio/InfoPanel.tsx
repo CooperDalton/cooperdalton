@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import posthog from "posthog-js";
 
 import {
   aboutContent,
@@ -197,6 +198,7 @@ export function InfoPanel({ selectedPanel, onClose }: InfoPanelProps) {
   const title = getPanelHeading(selectedPanel);
 
   async function handleCopyEmail() {
+    posthog.capture("email_copy_clicked");
     try {
       await navigator.clipboard.writeText(EMAIL_ADDRESS);
       setCopyMessage("Email address copied!");
@@ -244,6 +246,13 @@ export function InfoPanel({ selectedPanel, onClose }: InfoPanelProps) {
                   rel="noreferrer"
                   aria-label={`Open ${selectedProject.title}`}
                   className="text-sky-200 transition hover:text-sky-100 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
+                  onClick={() =>
+                    posthog.capture("project_link_clicked", {
+                      project_id: selectedProject.id,
+                      project_title: selectedProject.title,
+                      href: selectedProject.href,
+                    })
+                  }
                 >
                   <ExternalLinkIcon />
                 </a>

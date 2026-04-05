@@ -1,6 +1,7 @@
 "use client";
 
 import { startTransition, useEffect, useEffectEvent, useState } from "react";
+import posthog from "posthog-js";
 
 import { HeroScene } from "@/app/components/portfolio/HeroScene";
 import { InfoPanel } from "@/app/components/portfolio/InfoPanel";
@@ -16,6 +17,7 @@ export function PortfolioApp() {
   const animationPaused = hoveredPanel !== null || selectedPanel !== null;
 
   const openPanel = (panel: PortfolioPanelKey) => {
+    posthog.capture("portfolio_panel_opened", { panel });
     startTransition(() => {
       setHoveredPanel(null);
       setSelectedPanel(panel);
@@ -23,6 +25,9 @@ export function PortfolioApp() {
   };
 
   const closePanel = () => {
+    if (selectedPanel) {
+      posthog.capture("portfolio_panel_closed", { panel: selectedPanel });
+    }
     startTransition(() => {
       setSelectedPanel(null);
     });
