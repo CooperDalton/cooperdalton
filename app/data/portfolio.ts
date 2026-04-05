@@ -56,7 +56,7 @@ export const projectCards: ProjectCard[] = [
     status: "In Progress",
     description:
       "A work-in-progress idle game I’m building right now, with a planned release on June 30, 2026.",
-    stack: ["Unity", "C#", "Steam"],
+    stack: ["Unity", "C#", "Steam API"],
     accentColor: "#60a5fa",
     emissiveColor: "#93c5fd",
     demoImageSrc: "/models/idler.gif",
@@ -69,7 +69,7 @@ export const projectCards: ProjectCard[] = [
     status: "Live Product",
     description:
       "A startup I built last summer. It's an AI tool that automates TikTok and Instagram slideshow videos to help businesses market themselves. It has an AI agent that can one-click generate entire slideshow videos that are designed to go viral and market any product.",
-    stack: ["Next.js", "Supabase", "OpenAI", "Stripe"],
+    stack: ["Next.js", "Supabase", "GPT-4o", "Stripe", "Vercel", "TypeScript"],
     accentColor: "#fb7185",
     emissiveColor: "#fda4af",
     href: "https://scrollstopperai.com/",
@@ -83,7 +83,7 @@ export const projectCards: ProjectCard[] = [
     status: "Prototype",
     description:
       "An AI copilot for 911 dispatchers that transcribes calls live, pulls out critical details, and flags missing information. Also includes a fully autonomous 911 dispatcher voice agent and live ai monitoring dashboard. We won best use of Gemini and best use of Deepgram at a hackathon with this project.",
-    stack: ["Node.js", "TypeScript", "Supabase", "AI"],
+    stack: ["Next.js", "TypeScript", "Supabase", "Gemini"],
     accentColor: "#34d399",
     emissiveColor: "#6ee7b7",
     href: "https://devpost.com/software/dispatchiq-usn87o",
