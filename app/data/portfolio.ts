@@ -36,12 +36,10 @@ export const aboutSceneObject: SceneObjectConfig = {
 
 export const aboutContent = {
   paragraphs: [
-    "I'm currently studying Computer Science at UCSB. I'm interested in game development and entrepreneurship.",
-    "Right now, I'm working on two main projects: a coin-scanning mobile app, and an idle game I'm planning to release on Steam.",
-    "Before this, I built a multiplayer Unity game, along with an AI-powered slideshow generator for TikTok and Instagram that helps businesses create short-form content.",
-    "I've been into building for a while. I started by making Minecraft mods when I was 10, and since then I've just kept going, trying ideas, shipping projects, and figuring things out as I go.",
+    "I'm currently studying Computer Science at UCSB. I'm interested in game development and entrepreneurship. Right now, I'm working on two main projects: a coin-scanning mobile app, and an idle game I'm planning to release on Steam. Before this, I built a multiplayer Unity game, along with an AI-powered slideshow generator for TikTok and Instagram that helps businesses create short-form content. I've been into building for a while. I started by making Minecraft mods when I was 10, and since then I've just kept going, trying ideas, shipping projects, and figuring things out as I go.",
   ],
   funFacts: [
+    "I've won 4 hackathons",
     "I rock climb and play badminton",
     "I baked a cake with a blowtorch (it did not go well)",
     "I read 30 books last year",
@@ -70,7 +68,7 @@ export const projectCards: ProjectCard[] = [
     category: "SaaS Product",
     status: "Live Product",
     description:
-      "An AI tool that automates TikTok and Instagram slideshow videos to help businesses market themselves. ",
+      "A startup I built last summer. It's an AI tool that automates TikTok and Instagram slideshow videos to help businesses market themselves. It has an AI agent that can one-click generate entire slideshow videos that are designed to go viral and market any product.",
     stack: ["Next.js", "Supabase", "OpenAI", "Stripe"],
     accentColor: "#fb7185",
     emissiveColor: "#fda4af",
@@ -84,7 +82,7 @@ export const projectCards: ProjectCard[] = [
     category: "AI Systems",
     status: "Prototype",
     description:
-      "An AI copilot for 911 dispatchers that transcribes calls live, pulls out critical details, and flags missing information. Also includes a fully autonomous 911 dispatcher voice agent and live ai monitoring dashboard.",
+      "An AI copilot for 911 dispatchers that transcribes calls live, pulls out critical details, and flags missing information. Also includes a fully autonomous 911 dispatcher voice agent and live ai monitoring dashboard. We won best use of Gemini and best use of Deepgram at a hackathon with this project.",
     stack: ["Node.js", "TypeScript", "Supabase", "AI"],
     accentColor: "#34d399",
     emissiveColor: "#6ee7b7",
