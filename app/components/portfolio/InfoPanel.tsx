@@ -18,6 +18,18 @@ interface InfoPanelProps {
 }
 
 const EMAIL_ADDRESS = "cooper@cooperdalton.com";
+const SOCIAL_LINKS = [
+  {
+    label: "GitHub",
+    href: "https://github.com/CooperDalton",
+    eventName: "github_link_clicked",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/cooper-dalton/",
+    eventName: "linkedin_link_clicked",
+  },
+] as const;
 
 function getYouTubeEmbedUrl(url: string) {
   const videoId = url.match(
@@ -243,13 +255,32 @@ export function InfoPanel({ selectedPanel, onClose }: InfoPanelProps) {
                 </a>
               ) : null}
               {selectedPanel === "about" ? (
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-white/14 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
-                >
-                  Email me
-                </button>
+                <>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-white/14 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
+                  >
+                    Email me
+                  </button>
+                  {SOCIAL_LINKS.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-medium text-slate-100 transition hover:bg-white/14 focus:outline-none focus:ring-2 focus:ring-sky-300/60"
+                      onClick={() =>
+                        posthog.capture(link.eventName, {
+                          href: link.href,
+                          location: "about_panel",
+                        })
+                      }
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </>
               ) : null}
               {copyMessage ? (
                 <span aria-live="polite" className="text-sm text-emerald-300">
